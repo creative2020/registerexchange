@@ -117,12 +117,13 @@ function tt_posts ( $atts ) {
             'type' => 'post',
             'layout' => 'norm',
             'style' => '',
-            'orderby' => '',
+            'orderby' => 'post_date',
             'order' => 'DSC',
             'term' => '',
             'taxonomy' => 'Type',
             'offset' => '',
             'col' => '3',
+            'post_name' => '',
 		), $atts )
 	);
     
@@ -135,38 +136,22 @@ $user_photo_img = '<img src="' . $user_photo_url . '">';
 
 /////////////////////////////////////// All Query    
 if ($name == 'post') {
-	// The Query
 
-	
-
-	if ( !empty($term) ) {
-	    $args = array(
+    $args = [
 		'post_type' => $type,
 		'post_status' => 'publish',
+        'name' => $post_name,
 		'orderby' => $orderby,
 		'order' => $order,
 		'posts_per_page' => $limit,
 	    'cat' => $cat,
-	    'tax_query' => array(
-			array(
-				'taxonomy' => $taxonomy,
-				'field'    => 'slug',
-				'terms'    => $term,
-			),
-		),
-	);
-	} else {
-		$args = array(
-		'post_type' => $type,
-		'post_status' => 'publish',
-		'order' => 'post_date',
-		'orderby' => 'rand',
-		'posts_per_page' => $limit,
-	    'cat' => $cat,
-	    //'category_name' => $cat_name,
-	);
+    ];
+
+	if ( !empty($term) ) {
+        $args['tax_query'] = [ [ 'taxonomy' => $taxonomy, 'field' => 'slug', 'terms' => $term ] ];
+    }
 }
-}
+
 remove_all_filters('posts_orderby');
 $the_query = new WP_Query( $args );
 

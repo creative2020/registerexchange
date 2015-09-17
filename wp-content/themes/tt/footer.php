@@ -1,5 +1,3 @@
-<?php //get_template_part('section', 'graybar'); ?>
-
 <?php get_template_part('section', 'whitebar'); ?>
 
 <?php get_template_part('section', 'gallery'); ?>

@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 <?php wp_head(); ?>
 </head>
-<body>
+<body class="<?php body_class(); ?>">
 
 
     <div class="container-fluid">
